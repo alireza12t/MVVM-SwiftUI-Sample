@@ -35,7 +35,7 @@ protocol WeatherFetchable {
   func currentWeatherForecast(forCity city: String) -> AnyPublisher<CurrentWeatherForecastResponse, WeatherError>
 }
 
-//MARK: - WeatherFetchable 
+
 
 class WeatherFetcher {
   private let session: URLSession
@@ -88,5 +88,32 @@ private extension WeatherFetcher {
     ]
     
     return components
+  }
+}
+
+//MARK: - WeatherFetchable
+extension WeatherFetcher: WeatherFetchable {
+  func currentWeatherForecast(forCity city: String) -> AnyPublisher<CurrentWeatherForecastResponse, WeatherError> {
+    return forecast(with: makeCurrentDayForecastComponents(withCity: city))
+  }
+  
+  func weeklyWeatherForcast(forCiity city: String) -> AnyPublisher<WeeklyForecastResponse, WeatherError> {
+    return forecast(with: makeWeeklyForecastComponents(withCity: city))
+  }
+  
+  private func forecast<T>(with components: URLComponents) -> AnyPublisher<T, WeatherError> where T: Decodable {
+    guard let url = components.url else {
+      let error = WeatherError.network(description: "URL couldn't be created")
+      return Fail(error: error).eraseToAnyPublisher()
+    }
+    
+    return session.dataTaskPublisher(for: URLRequest(url: url))
+      .mapError { (error) -> WeatherError in
+        .network(description: error.localizedDescription)
+      }
+      .flatMap(maxPublishers: .max(1)) { pair in
+        decode(pair.data)
+      }
+      .eraseToAnyPublisher()
   }
 }

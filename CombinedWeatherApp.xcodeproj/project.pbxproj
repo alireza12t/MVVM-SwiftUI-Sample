@@ -52,6 +52,7 @@
 		B2EE1C2522B7CE610039ABC4 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2EE1C2622B7CE610039ABC4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B2EE1C2722B7CE610039ABC4 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		F5E984C724C057F3005E5077 /* CombinedWeatherApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CombinedWeatherApp.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +87,7 @@
 		18D775BF22AD944300AE281E /* CombinedWeatherApp */ = {
 			isa = PBXGroup;
 			children = (
+				F5E984C724C057F3005E5077 /* CombinedWeatherApp.entitlements */,
 				B2EE1C2D22B7CF960039ABC4 /* Utilities */,
 				B2EE1C2122B7CE610039ABC4 /* Supporting Files */,
 				B2EE1C1E22B7CD040039ABC4 /* Weather */,
@@ -414,6 +416,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CombinedWeatherApp/CombinedWeatherApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AJLMAG95WU;
 				ENABLE_PREVIEWS = YES;
@@ -433,6 +436,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CombinedWeatherApp/CombinedWeatherApp.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = AJLMAG95WU;
 				ENABLE_PREVIEWS = YES;
