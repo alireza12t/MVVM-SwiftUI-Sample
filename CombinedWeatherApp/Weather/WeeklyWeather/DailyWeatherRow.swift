@@ -59,3 +59,27 @@ struct DailyWeatherRow: View {
 }
 
 
+
+struct DailyWeatherRow_Previews: PreviewProvider {
+  static var previews: some View {
+    HStack {
+      VStack {
+        Text("06")
+        Text("July")
+      }
+      
+      VStack(alignment: .leading) {
+        Text("Clear")
+          .font(.body)
+        Text("few Clouds")
+          .font(.footnote)
+      }
+        .padding(.leading, 8)
+
+      Spacer()
+
+      Text("25°")
+        .font(.title)
+    }
+  }
+}
