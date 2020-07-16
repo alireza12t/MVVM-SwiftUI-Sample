@@ -29,13 +29,45 @@
 import SwiftUI
 
 struct CurrentWeatherView: View {
+  @ObservedObject var currentViewModel: CurrentWeatherViewModel
+
+  init(viewModel: CurrentWeatherViewModel) {
+    self.currentViewModel = viewModel
+  }
+
   var body: some View {
-    Text("Seems like a lovely day 😎")
+    List(content: content)
+      .onAppear(perform: onAppear {
+        currentViewModel.refresh()
+      } as? () -> Void)
+      .navigationTitle(currentViewModel.city)
+      .listStyle(GroupedListStyle())
+  }
+}
+
+private extension CurrentWeatherView {
+  func content() -> some View {
+    if let viewModelDataSource = currentViewModel.dataSource {
+      return AnyView(details(for: viewModelDataSource))
+        } else {
+          return AnyView(loading)
+        }
+  }
+  
+  func details(for viewModel: CurrentWeatherRowViewModel) -> some View {
+    CurrentWeatherView(viewModel: currentViewModel)
+  }
+  
+  var loading: some View {
+    Text("Loading \(currentViewModel.city)'s weather....")
+      .foregroundColor(.gray)
   }
 }
 
 struct CurrentWeatherView_Previews: PreviewProvider {
   static var previews: some View {
-    /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
+    let fetcher = WeatherFetcher()
+
+    WeeklyWeatherBuilder.makeCurrentWeatherView(withCityy: "Tehran", fetcher: fetcher)
   }
 }
